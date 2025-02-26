@@ -1,0 +1,6 @@
+.env
+venv/
+service_account.json
+outputs/
+inputs/
+__pycache__
