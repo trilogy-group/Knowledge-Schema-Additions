@@ -172,18 +172,23 @@ def write_to_frq_sheet(frq_output_path):
             google_sheet_info["frq_output_sheet_name"]
         )
         
-        # Clear existing data (except headers)
-        output_sheet.clear()
-        output_sheet.update("A1", [["Question ID", "Question", "Question Type", "Unit", 
-                             "Responses", "Facts Referenced", "Combined Response with Facts",
-                             "Reasoning", "Raw JSON"]])
+        # Get all values to find the next empty row
+        existing_values = output_sheet.get_all_values()
+        next_row = len(existing_values) + 1
+        
+        # Ensure headers exist if sheet is empty
+        if not existing_values:
+            output_sheet.update("A1", [["Question ID", "Question", "Question Type", "Unit", 
+                                "Responses", "Facts Referenced", "Combined Response with Facts",
+                                "Reasoning", "Raw JSON"]])
+            next_row = 2  # Start data at row 2
         
         # Read from CSV file
         with open(frq_output_path, 'r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             rows = list(reader)
         
-        # Skip header row (already added)
+        # Prepare data to append
         data_to_append = []
         for row in rows:
             data_to_append.append([
@@ -200,9 +205,9 @@ def write_to_frq_sheet(frq_output_path):
         
         # Append all rows at once (faster than one by one)
         if data_to_append:
-            output_sheet.update("A2", data_to_append)
+            output_sheet.update(f"A{next_row}", data_to_append)
             
-        logging.info(f"Successfully wrote {len(data_to_append)} FRQ responses to Google Sheet")
+        logging.info(f"Successfully appended {len(data_to_append)} FRQ responses to Google Sheet")
     except Exception as e:
         logging.error(f"Failed to write to Google Sheet: {str(e)}")
 
@@ -232,11 +237,14 @@ def write_to_grading_sheet(grading_outputs):
                 sheet_mapping[question_type]
             )
             
-            # Clear existing data (except headers)
-            output_sheet.clear()
+            # Get all values to find the next empty row
+            existing_values = output_sheet.get_all_values()
+            next_row = len(existing_values) + 1
             
-            # Add headers
-            output_sheet.update("A1", [headers])
+            # Ensure headers exist if sheet is empty
+            if not existing_values:
+                output_sheet.update("A1", [headers])
+                next_row = 2  # Start data at row 2
             
             # Read data from CSV
             data_to_append = []
@@ -247,25 +255,46 @@ def write_to_grading_sheet(grading_outputs):
             
             # Append data if available
             if data_to_append:
-                output_sheet.update("A2", data_to_append)
+                output_sheet.update(f"A{next_row}", data_to_append)
                 
-            logging.info(f"Successfully wrote {len(data_to_append)} {question_type} grading results to Google Sheet")
+            logging.info(f"Successfully appended {len(data_to_append)} {question_type} grading results to Google Sheet")
         except Exception as e:
             logging.error(f"Failed to write {question_type} to Google Sheet: {str(e)}")
 
 # Read facts from the corresponding unit's CSV file
-def get_facts_for_unit(unit_number):
+def get_facts_for_unit(unit_string):
+    """
+    Read facts from the corresponding unit's CSV file(s).
+    Input could be a single unit or multiple units (e.g., '12', '589').
+    Returns facts combined from all specified units.
+    """
+    # Parse unit string into individual unit numbers
+    unit_numbers = [int(digit) for digit in str(unit_string)]
+    
     facts_dir = "KS_facts"
-    # Find the CSV file that matches the unit number
-    for filename in os.listdir(facts_dir):
-        if filename.startswith(f"unit{unit_number}") and filename.endswith(".csv"):
-            facts_path = os.path.join(facts_dir, filename)
-            with open(facts_path, "r", encoding="utf-8") as f:
-                reader = csv.reader(f)
-                next(reader)  # Skip header row
-                facts = [row[2] for row in reader if row and len(row) > 2]  # Column C (index 2)
-                return "\n".join(facts)
-    raise FileNotFoundError(f"No facts file found for unit {unit_number}")
+    all_facts = []
+    
+    # Collect facts from each unit
+    for unit_number in unit_numbers:
+        found = False
+        for filename in os.listdir(facts_dir):
+            if filename.startswith(f"unit{unit_number}") and filename.endswith(".csv"):
+                facts_path = os.path.join(facts_dir, filename)
+                with open(facts_path, "r", encoding="utf-8") as f:
+                    reader = csv.reader(f)
+                    next(reader)  # Skip header row
+                    unit_facts = [row[2] for row in reader if row and len(row) > 2]  # Column C (index 2)
+                    all_facts.extend(unit_facts)
+                found = True
+                break
+        
+        if not found:
+            logging.warning(f"No facts file found for unit {unit_number}")
+    
+    if not all_facts:
+        raise FileNotFoundError(f"No facts files found for any unit in {unit_string}")
+    
+    return "\n".join(all_facts)
 
 def format_response_data(function_args, question_type):
     """

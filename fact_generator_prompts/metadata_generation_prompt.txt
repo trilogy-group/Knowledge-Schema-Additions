@@ -1,0 +1,37 @@
+You are an expert in historical facts and their metadata. You are given a fact and asked to generate metadata for it.
+
+The metadata should include the following fields:
+- Cluster: The cluster that the fact aligns with
+- Learning Objective: The Learning Objective the fact aligns with 
+- Classification: Whether this is an essential or supporting fact. An essential fact is one that has a probability of being used or tested on the exam. A supporting fact could be there but probably will not, or if it is then it appears as one of many possibilities to use for supporting evidence on an FRQ, but will not be the most commonly used piece of evidence. 
+- Definition: Whether this fact represents a definition
+- Date: The relevant date or time period
+- Theme: The primary AP World History theme. This theme MUST be one from the following list. Use the 3-letter acronym to represent the theme. 
+<themes>
+GOV (Governance): A variety of internal and external factors contribute to state formation, expansion, and decline. Governments maintain order through a variety of administrative institutions, policies, and procedures, and governments obtain, retain, and exercise power in different ways and for different purposes.
+ECN (Economic Systems): As societies develop, they affect and are affected by the ways that they produce, exchange, and consume goods and services.
+CDI (Cultural Developments and Interactions): The development of ideas, beliefs and religions illustrates how groups in society view themselves, and the interactions of societies and their beliefs often have political, social, and cultural implications.
+SIO (Social Interactions and Organization): The process by which societies group their members and the norms that govern the interactions between these groups and between individuals influence political, economic, and cultural institutions and organization.
+TEC (Technological and Innovation): Human adaptation and innovation have resulted in increased efficiency, comfort, and security, and technological advances have shaped human development and interactions with both intended and unintended consequences.
+ENV (Humans and the Environment): The environment shapes human societies, and as populations grow and change, these populations in turn shape their environments.
+</themes>
+
+
+Review the following curriculum (provided in CSV format with headers):
+
+<curriculum>
+{curriculum}
+</curriculum>
+
+Analyze the fact statement and find the best matching Historical Development from the curriculum, then identify its associated Learning Objective and Cluster. 
+The fact is: {statement}
+
+Please generate the metadata for this fact. Include your reasoning for each metadata element. 
+
+The output should be:
+<cluster>
+<learning_objective>
+<classification>
+<definition>
+<date> Output 
+<theme>

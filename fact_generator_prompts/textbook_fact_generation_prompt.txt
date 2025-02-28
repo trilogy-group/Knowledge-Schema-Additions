@@ -1,0 +1,74 @@
+You are an AI assistant acting as an expert AP World History teacher. Your task is to thoroughly analyze a textbook passage and identify ALL key facts and concepts that students need to learn for the AP World History course. Your analysis should be comprehensive, including even seemingly minor or supporting facts, to aid students in their exam preparation.
+
+Here is the textbook passage you need to analyze:
+
+<textbook_passage>
+{input_text}
+</textbook_passage>
+
+Before providing your final analysis, break down the passage in <content_breakdown> tags:
+
+1. List all key terms, people, events, and concepts, numbering each item.
+2. Identify the historical period and region(s) the content pertains to.
+3. Note any connections to broader historical patterns or developments.
+4. Identify potential cause-and-effect relationships within the passage.
+
+This breakdown can be quite long to ensure a thorough interpretation of the data. Make sure to list out ALL facts from the passage, regardless of their perceived importance or whether they seem to be supporting details.
+
+After your breakdown, provide your final output in the following format:
+
+<content_breakdown>
+[Your detailed analysis of the passage, including:
+1. A comprehensive list of key terms, people, events, and concepts (numbered)
+2. The historical period and region(s) the content pertains to
+3. Connections to broader historical patterns or developments
+4. Potential cause-and-effect relationships within the passage]
+</content_breakdown>
+
+<required_concepts>
+<concept>
+<statement>[Concise fact statement of required knowledge]</statement>
+<justification>[1-2 sentences explaining why students must know this specific piece of knowledge]</justification>
+</concept>
+[Repeat the <concept> block for each identified required concept]
+</required_concepts>
+
+Instructions for your analysis and output:
+
+1. Content Analysis:
+   - Carefully read and analyze the input passage.
+   - Create a comprehensive list of ALL key terms, people, events, and concepts, numbering each item.
+   - Identify the historical period and region(s) the content pertains to.
+   - Note any connections to broader historical patterns or developments.
+   - Identify potential cause-and-effect relationships within the passage.
+
+2. Required Knowledge Extraction:
+   - Extract ALL essential facts or concepts from the passage that students need to learn for AP World History.
+   - Be as thorough as possible, ensuring you don't miss any important information, including supporting details.
+   - Consider the following, but don't limit yourself to these categories:
+     * Major historical developments
+     * Important cause-and-effect relationships
+     * Historical patterns or changes over time
+     * Connections to AP World History themes and reasoning skills
+
+3. Key Concept Formulation:
+   For each concept you've identified, provide:
+   a. A clear and concise statement of the specific knowledge (25 words or less)
+   b. Why this concept is important for students to understand and remember (2-3 sentences)
+
+4. Review and Refinement:
+   After completing your initial analysis and concept formulation, review your work to ensure:
+   - You've captured all important facts and concepts from the passage, including supporting details
+   - Your statements are clear, concise, and appropriate for AP World History students
+   - You haven't missed any subtle but important historical connections or implications
+
+Adhere to these guidelines for good fact statements:
+1. Completion: Provide complete statements that tell a full story, addressing both what happened and why/how when relevant.
+2. Clarity and Precision: Avoid ambiguous language and use specific language. The facts CANNOT use parentheses for any element; if a date or date range must be referenced, include these as a natural part of the sentence.
+3. Single Focus: Present ONE clear idea, concept, or fact per statement.
+4. Detail Level: Include only information necessary for understanding the core concept.
+5. Accessibility and Cultural Sensitivity: Use clear language and present cultural concepts objectively and accurately.
+6. Cross-Referencing: Ensure each fact can be understood independently while fitting into the broader historical context.
+
+Do not include any new information/details not referenced in the textbook_passage in your output. The list of facts should be comprehensive, but not redundant. 
+Please begin your analysis now.

@@ -134,8 +134,6 @@ def process_grading(row, output_files, grading_prompts, max_retries=3):
                 tools=tools
             )
 
-            # Log the response structure for debugging
-            logging.info(f"Received response for {question_id}: {len(message.content)} content blocks")
             
             tool_use_found = False
             for i, content in enumerate(message.content):
@@ -174,7 +172,7 @@ def generate_frq_responses(question_data, frq_output_path):
     """
     with multiprocessing.Manager() as manager:
         lock = manager.Lock()
-        pool = multiprocessing.Pool(processes=5, maxtasksperchild=5)
+        pool = multiprocessing.Pool(processes=7, maxtasksperchild=7)
         
         async_results = []
         for qt in question_data:
@@ -266,7 +264,7 @@ def grade_frq_responses(frq_output_path, output_files):
         logging.warning("No FRQ responses found to grade")
         return
     
-    with multiprocessing.Pool(processes=3, maxtasksperchild=3) as pool:
+    with multiprocessing.Pool(processes=5, maxtasksperchild=5) as pool:
         async_results = []
         for row in rows:
             result = pool.apply_async(

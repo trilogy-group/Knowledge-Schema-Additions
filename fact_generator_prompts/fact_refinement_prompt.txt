@@ -1,0 +1,111 @@
+You are an expert curriculum designer and historian tasked with refining a list of historical facts/facts for a given curriculum. Your primary goal is to identify and remove redundant facts while preserving the most impactful ones. It's crucial to maintain the original wording of the fact statements throughout this process.
+
+First, review the curriculum information provided:
+
+<curriculum_information>
+{curriculum}
+</curriculum_information>
+
+Now, examine the list of historical facts/facts:
+
+<fact_list>
+{fact_list}
+</fact_list>
+
+Your task is to analyze and refine this list through the following process:
+
+1. Carefully review each fact in the list.
+2. Identify overarching themes or topics in the fact list.
+3. For each fact, consider the following questions:
+   a. Is this fact redundant or significantly overlapping with another fact in the list?
+   b. Is this fact essential to understanding the core curriculum?
+   c. How impactful is this fact for students on a scale of 1-5, with 5 being the most directly important for the test?
+   d. What relationships exist between this fact and others in the list?
+
+4. Based on your analysis, create a refined list by removing redundant facts.
+
+Each fact from the refined list of facts MUST follow these guidelines:
+
+1. Completion: Provide complete statements that tell a full story, addressing both what happened and why/how when relevant.
+2. Clarity and Precision: Avoid ambiguous language and use specific language. The facts CANNOT use parentheses for any element; if a date or date range must be referenced, include these as a natural part of the sentence.
+3. Single Focus: Present ONE clear idea, concept, or fact per statement.
+4. Detail Level: Include only information necessary for understanding the core concept.
+5. Accessibility and Cultural Sensitivity: Use clear language and present cultural concepts objectively and accurately.
+6. Cross-Referencing: Ensure each fact can be understood independently while fitting into the broader historical context.
+Before producing your final output, wrap your analysis in <fact_analysis> tags. Create a structured evaluation for each fact, explicitly stating relationships between facts and rating their importance. This will ensure a thorough interpretation of the data and demonstrate your reasoning.
+
+Use this structure for your evaluation:
+
+<fact_analysis>
+List of Facts:
+[List all facts, each prepended with a number to count them]
+
+Themes/Topics:
+[List all identified themes/topics]
+
+Fact Categorization:
+[For each theme/topic, list the facts that belong to it]
+
+Fact Evaluations:
+[For each fact]
+Fact: [Exact text of the fact]
+Theme/Topic: [Which theme/topic it belongs to]
+Importance (1-5): [Rating] - [Brief justification for the rating]
+Redundant: [Yes/No] - [Brief explanation if yes, mentioning related facts]
+Essential: [Yes/No] - [Brief explanation]
+Relationships: [List any related facts and how they connect]
+Decision: [Keep/Remove] - [Brief justification]
+
+Summary of Themes:
+[Summarize the identified themes/topics and explain their importance to the curriculum]
+
+Redundancy Analysis:
+[Discuss any patterns of redundancy observed across themes]
+
+Final Check:
+[Confirm that no essential facts or meanings have been lost in the refinement process]
+</fact_analysis>
+
+After your analysis, provide your output in the following JSON-compatible format:
+
+
+"fact_analysis": "Your detailed analysis in the following structure:
+
+List of Facts:
+[Numbered list of all facts]
+
+Themes/Topics:
+[List of identified themes/topics]
+
+Fact Categorization:
+[Facts grouped by theme/topic]
+
+Fact Evaluations:
+[Individual fact evaluations with importance ratings, redundancy checks, etc.]
+
+Summary of Themes:
+[Theme importance summary]
+
+Redundancy Analysis:
+[Redundancy patterns discussion]
+
+Final Check:
+[Confirmation of essential content preservation]",
+
+"refined_facts": 
+        "id": "[original fact ID]",
+        "fact": "[exact fact text as in original]"
+    
+
+"change_explanation": "[Detailed explanation of which facts were removed and why, with specific references to redundancies and reasoning]"
+
+
+Remember:
+- The fact_analysis should be a single string containing your structured analysis
+- refined_facts must be an array of objects, each with an id and fact field
+- The change_explanation should be a single string explaining all removals
+- Maintain exact original fact IDs and text in the refined_facts list
+- Ensure your output is valid JSON format
+
+Please proceed with your analysis and refinement of the fact list.
+

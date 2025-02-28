@@ -1,0 +1,161 @@
+You are an expert AP World history curriculum designer tasked with refining a knowledge schema for AP World History, that includes the historical facts for the curriculum.
+You are launching a new AP World history course, that will be based on this knowledge schema.
+The important thing about the course we are building is we want to have a course that is much more efficient than the regular academic course while still ensuring that 90% of students taking our course will get a 5.
+The course is not merely a study guide that relies on students going through other textbooks. It is a full course - even home schooled students who only take our course have a high chance of getting a 5.
+
+We have generated a list of consolidated facts from multiple sources: amsco, princeton, heimler and past exam questions.
+The different sources have different purposes and different strengths. 
+Amsco is comprehensive textbook material but not very efficient. 
+Whereas princeton, heimler are study guides; those aren't great instructional material so what they cover is important but we might need some additional supporting facts to drive the narrative and develop understanding.
+Exam facts show what has already been questioned about in the past.
+
+We have also categorized the facts into essential, supporting and nuanced detail as below definitions.
+Essential facts are those that are covered are foundational to the learning objectives mentioned in AP World history CED. A fact that is covered in two sources is a good indicator of it being essential. But it is not the only criteria, a fact from a single source is also essential if it is foundational to the learning objectives.
+Supporting facts are facts needed to teach those essential facts or develop a level of understanding of essential facts that is needed for the exam. They help keep the facts tightly interconnected in the student's brain.
+Nuanced details are those facts that are covered in only one source. And it is a detail that does not qualify as essential or supporting fact and is not expected to be known by the student.
+
+GOAL:
+You are given a filtered set of facts comprising only of essential and supporting facts, along with their analysis.
+The purpose of consolidation is to achieve the goal of course efficiency while maintaining academic rigor, and having a cohesive set of facts even though they were accumulated from multiple sources.
+You achieve consolidation by reusing/merging/discarding different facts, entirely or partly based on the data provided in analysis of each fact.
+Each fact in the new final set of facts that you provide need to follow fact generation guidelines mentioned below.
+
+First, review the curriculum information provided which limits the scope of the analysis. The illustrative examples are important concepts to retain:
+<curriculum_information>
+{curriculum}
+</curriculum_information>
+
+Next review the consolidation requirements:
+CONSOLIDATION REQUIREMENTS:
+1. Include all facts with an importance rating of 4 or 5. 
+2. Central ideas from remaining facts, including those with importance rating 3, **must be carefully reviewed and considered** for inclusion in the consolidated set.
+  - These facts can be merged with other facts by extracting key ideas from each and coming up with a fact that is more important than the individual facts.
+  - Closely related multiple low scoring facts are talking about different aspects of some central idea.
+  - This allows for compression of details in lower scoring facts while still retaining the central idea that might be important for the student to know. 
+  - The merged fact should be aligned with curriculum information and worthy for the student to know.
+  - The merged fact should not be a duplicate of some high scoring fact already covered.
+3. Each fact in the consolidated facts must follow the fact generation guidelines. 
+4. If combining two facts breaks the fact generation guidelines, it is preferable to keep them separate.
+5. Provide individual explanations for **every** fact ID, including those with importance rating 3, detailing how their central ideas were handled.
+
+Next understand the fact generation guidelines, as these are the guidelines for each fact in the final output:
+<fact_generation_guidelines>
+# What Makes a Good Fact Statement?
+
+1. **Completion**
+    - Must be a complete statement that tells a full story, addressing both what happened and why/how when relevant
+    - Must contain a testable piece of knowledge rather than just stating a term
+    - Should include all necessary context while avoiding loose ends or unanswered questions
+2. **Clarity and Precision**
+    - Use specific dates, names, and locations when required for student understanding
+    - Avoid abstract terms and ambiguous language
+    - Define technical terms in separate nodes rather than within fact statements
+    - Use current, accurate terminology that aligns with contemporary standards
+    - Do NOT use parentheses in the fact for any element
+3. **Single Focus**
+    - Present one clear idea, concept, or fact
+    - Split statements that cover multiple distinct concepts
+    - Combine information only when concepts are inherently linked
+    - Allow supporting nodes to provide examples and additional context
+4. **Detail Level**
+    - Include only information necessary for understanding the core concept
+    - Strike a balance between brevity and comprehensiveness
+    - Aim for concise statements (preferably under 30 words)
+    - Use metadata to manage dates and classifications
+5. **Accessibility and Cultural Sensitivity**
+    - Use straightforward, clear language appropriate for the target audience
+    - Present cultural and religious concepts respectfully and accurately
+    - Address controversial topics with neutrality and sensitivity
+    - Avoid assuming knowledge beyond what is provided in prerequisite nodes
+6. **Cross-Referencing**
+    - Ensure statements can be understood independently while fitting into the broader knowledge map.
+    - Facts MUST be able to stand-alone as sentences and not rely on other statements as a reference. 
+
+# Examples
+
+| ✅ Good | 🟥 Bad |
+| --- | --- |
+| *"The Tang Dynasty struggled to accept the growing prominence of Buddhism, a foreign religion, in Chinese society."*
+
+- Focuses solely on the Tang Dynasty's struggle with Buddhism | *"The Tang Dynasty, which considered itself the 'Middle Kingdom,' struggled to accept the prominence of Buddhism, a foreign religion, in Chinese society"*
+
+- The inclusion of the 'Middle Kingdom' is unnecessary, potentially confusing, and not well-explained |
+| *"Market-oriented agriculture grew under the Song and Ming dynasties, fueling China's commercialization."*
+
+- Provides just enough specificity without adding unnecessary detail | *"Market-oriented agriculture, which means growing crops to sell rather than just for personal use, developed during the Song and Ming dynasties, made China more commercial."*
+
+- The explanation of *Market-oriented agriculture* is not needed, and muddles the statement |
+| *"Japan, Korea, and Vietnam benefited from proximity to China while facing the challenge of maintaining their distinctive cultures."*
+
+- Presents a complete idea about cultural influence and resistance without getting lost in specific details | *"Japan, Korea, and Vietnam gained benefits like the Chinese writing system and Buddhist temples, but struggled to maintain their unique cultures, such as Japan's Shinto religion, Korea's Hangul alphabet, and Vietnam's Đông Sơn drums."* 
+
+- Gets bogged down in specific examples that distract from the core concept |
+| *"Primogeniture is the practice in which a lord's eldest son inherits his land and title upon death, common in medieval European feudal systems."*
+
+- Straightforward definition of the practice and its significance | "When a lord died, his land and title passed to his eldest son, a practice known as primogeniture."
+
+- Poorly worded and does not provide context for who took part in this practice |
+
+</fact_generation_guidelines>
+
+
+OUTPUT STRUCTURE:
+<refined_facts>
+   [Array of objects containing:]
+   - statement: The text of the fact (original or modified)
+   - source_ids: Array of IDs of the original facts that contributed to this fact
+</refined_facts>
+<explanations>
+   {{
+     // IMPORTANT: You must provide an individual explanation for EACH fact ID
+     // DO NOT group facts into ranges
+     "a-1": "Explanation for what happened to fact a-1",
+     "a-2": "Explanation for what happened to fact a-2",
+     "a-3": "Explanation for what happened to fact a-3",
+     // ... and so on for EVERY fact ID that was in the original list
+   }}
+</explanations>
+
+
+Example output structure (using generic content):
+<refined_facts>
+   [
+     {{
+       "statement": "The American Revolution began with the Battle of Lexington and Concord in 1775, marking the start of armed conflict between American colonists and British forces.",
+       "source_ids": ["c-1", "c-4", "c-3"]
+     }},
+     {{
+       "statement": "The Declaration of Independence, formally adopted on July 4, 1776, articulated the 13 American colonies' intention to separate from British rule.",
+       "source_ids": ["c-2", "c-5"]
+     }},
+     // and so on showing only final consolidated facts that follow fact generation guidelines.
+   ]
+</refined_facts>
+<explanations>
+{{
+   "c-1": "Modified essential fact and merged with c-3 and c-4 to provide a comprehensive statement about the start of the American Revolution which is essential for the exam",
+   "c-2": "Merged supporting fact with score of 4 into c-2, added supporting context about what Declaration of Independence articulated",
+   "c-3": "Merged essential fact into c-1. Context about armed conflict between American colonists and British forces is supporting content, helps create a more complete narrative about the start of the Revolution",
+   "c-4": "Merged supporting fact of score 5 into c-1. Information combined with c-1 to include the Battle details which is essential detail for the exam",
+   "c-5": "Modified essential fact to create a new fact about the Declaration of Independence capturing when it was adopted and what it articulated",
+   "c-6": "Removed Nuanced detail fact due to logistical data of the armed conflict which is not essential for the exam"
+}}
+</explanations>
+
+IMPORTANT OUTPUT REQUIREMENTS:
+1. You MUST provide an individual explanation for EVERY fact ID that was in the original list
+2. DO NOT use ranges like "a-1 through a-12" - each fact needs its own explanation
+3. Each explanation should clearly state whether the fact was:
+   - Kept as is (and why)
+   - Modified (and how)
+   - Merged (and with what)
+   - Removed (clearly explaining what nuanced detail and why it is not relevant for exam)
+4. The explanations should be in a proper JSON format with each fact ID as a key
+5. You must respond the final consolidated facts and explanations in a single message and not in multiple messages.
+
+Please provide a consolidated set of all essential and supporting facts of score 4 or 5 that follow the fact generation guidelines.
+
+Here are the facts to consolidate:
+<fact_list>
+{fact_list}
+</fact_list>

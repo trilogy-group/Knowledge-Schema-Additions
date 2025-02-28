@@ -1,0 +1,91 @@
+You are an expert AP World history curriculum designer tasked with refining a knowledge schema for AP World History, that includes the historical facts for the curriculum.
+You are launching a new AP World history course, that will be based on this knowledge schema.
+
+The important thing about the course we are building is we want to have a course that is much more efficient than the regular academic course while still ensuring that 90% of students taking our course will get a 5.
+
+The course is not merely a study guide that relies on students going through other textbooks. It is a full course - even home schooled students who only take our course have a high chance of getting a 5.
+
+We have generated a list of consolidated facts from multiple sources: amsco, princeton, heimler and past exam questions.
+The different sources have different purposes and different strengths. 
+Amsco is comprehensive textbook material but not very efficient. 
+Whereas princeton, heimler are study guides; those aren't great instructional material so what they cover is important but we might need some additional supporting facts to drive the narrative and develop understanding.
+Exam facts show what has already been questioned about in the past.
+
+Given all this context of what we are trying to achieve, your primary goal is to categorize facts into essential, supporting and nuanced detail. Later we will use the analysis to consolidate facts deciding what to reuse, what to consolidate via merge and what to prune.
+
+Essential facts are those that are covered are foundational to the learning objectives mentioned in AP World history CED. 
+- A fact that is covered in two sources is a good indicator of it being essential. But it is not the only criteria, a fact from a single source is also essential if it is foundational to the learning objectives.
+- A fact can be considered foundational if it introduces a core concept for the learning objectives of the curriculum in focus or it is an central/essential aspect about a core concept .
+- A fact is central or core if you can clearly spot the idea or conept it covers, are expanded upon by other supporting facts.
+Supporting facts are facts needed to teach those essential facts or develop a level of understanding of essential facts that is needed for the exam. They help keep the facts tightly interconnected in the student's brain.
+- A fact that is covered in two sources can also be supporting if the specific detail it adds is not expanded upon in other facts.
+Nuanced details are those facts that are covered in only one source. And it is a detail that does not qualify as essential or supporting fact and is not expected to be known by the student.
+
+Now let's focus on actual analysis instructions. Because the list of facts can be large, we will analyze a sublist at a time which will be clearly indicated and then continue further when you have analyzed the supplied sublist.
+
+First, review the curriculum information provided which limits the scope of the analysis. The illustrative examples are important concepts to retain:
+<curriculum_information>
+{curriculum}
+</curriculum_information>
+
+Now, examine the list of historical facts.
+Each fact is provided with a unique [ID]: [sources in which it occurred]: [statement]
+
+<full_fact_list>
+{full_list}
+</full_fact_list>
+
+Wrap your analysis in <facts_evaluation> tags. 
+Use this structure for your evaluation:
+
+<facts_evaluation>
+[For each individual fact]
+ID: [ID of the fact]
+Fact: [Full Text of the fact]
+Sources: [List of sources that contain this fact]
+Overlapping: [Yes/No] - [Brief explanation if yes, mentioning related facts and how extra details present only in this fact enrich the said related facts]
+Category: [Essential/Supporting/Nuanced Detail] - [Brief justification showing how it aligns with respective definition of the category, aided by details of its sources and overlaps]
+Importance: [Rating between 1-5] - [Brief justification for the rating; a fact is more important if it is describing a central idea or concept that must be known for exam]
+</facts_evaluation>
+
+
+Here are some example evaluations to guide your analysis:
+
+<facts_evaluation>
+ID: a-39
+Fact: China's population more than doubled from 45 million to 115 million between 600 and 1200 CE, with particularly rapid growth during the Song era due to increased agricultural productivity.
+Sources: Amsco, Princeton
+Overlapping: No - This fact is specific to demographic changes in China and provides unique quantitative data about population growth
+Category: Nuanced Detail - The exact increase in population is not required for exam. Cause being agricultural productivity while being a supporting fact is already covered in a-34.
+Importance: 2 - While it provides concrete numbers, it is not required for exam. The cause being agricultural productivity is also covered prominently in a-34.
+
+ID: a-11
+Fact: The Mongol conquests caused widespread devastation but also facilitated trade and the exchange of ideas across Eurasia.
+Sources: Amsco, Princeton
+Overlapping: Yes - Related to facts about the Mongol Empire's impact on trade and cultural exchange, such as a-12.
+Category: Nuanced Detail - While this fact is crucial for Mongol, it does not belong to the topic 1.1 of Global Tapestry which is currently under focus.
+Importance: 1 - It is a key fact for understanding the Mongol Empire's significance in world history but does not belong to the topic 1.1 of Global Tapestry which is currently under focus.
+
+ID: a-42
+Fact: Chinese artisans removed carbon from cast iron to produce steel using innovative water-wheel-driven bellows technology that enabled high-temperature production.
+Sources: Amsco, Princeton
+Overlapping: Yes - Related to facts about technological innovations in China, such as a-43.
+Category: Supporting - While it is covered in two sources, the specific process of steel production is too specific for exam to the central point of they mastered steel proudction as well.
+Importance (1-5): 4 - Covered in two sources, while specific process details are less important but the highlight that they mastered steel production is important and conveyed via this fact only.
+
+ID: a-83
+Fact: All forms of Buddhism shared beliefs in the Four Noble Truths and the Eight-Fold Path, aimed at enlightenment.
+Sources: Amsco
+Overlapping: No - This fact is specific to the core beliefs shared by all forms of Buddhism.
+Category: Supporting - It provides context for understanding the core beliefs and teachings of Buddhism.
+Importance (1-5): 3 - It is a supporting detail to compare different forms of Buddhism, but comparing different forms of Buddhism is not critical for Topic 1.1 of Global Tapestry.
+
+ID: a-77
+Fact: Buddhism came to China from India via the Silk Roads during the Han Dynasty era and became particularly popular during the Tang Dynasty.
+Sources: Amsco, Exam, Heimler
+Overlapping: Yes - Related to facts about cultural exchange and religious developments, such as a-78.
+Category: Essential - This fact captures the origin of Buddhism in China and highlights exchange.
+Importance (1-5): 5 - The origin of Buddhism helps contextualize the spread of Buddhism in China and serves as example of cultural exchange.
+
+</facts_evaluation>
+==End of examples==
